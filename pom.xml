@@ -13,6 +13,7 @@
         <module>mall-store</module>
         <module>mall-wx</module>
         <module>mall-mybatis</module>
+        <module>mall-common</module>
     </modules>
 
     <parent>
