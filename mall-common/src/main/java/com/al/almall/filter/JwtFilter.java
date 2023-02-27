@@ -4,7 +4,6 @@ package com.al.almall.filter;
 import cn.hutool.core.util.StrUtil;
 import com.al.almall.entity.JwtToken;
 import com.al.almall.entity.Result;
-import com.al.almall.exception.RequestException;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.AccessControlFilter;

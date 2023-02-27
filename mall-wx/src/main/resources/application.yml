@@ -1,0 +1,26 @@
+server:
+  port: 8090
+  servlet:
+    context-path: /almall/wx
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+  datasource:
+    url: jdbc:mysql://localhost:3306/almall?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: 123456
+    druid:
+      initial-size: 5 #连接池初始化大小
+      min-idle: 10 #最小空闲连接数
+      max-active: 20 #最大连接数
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 查看日志
+  mapper-locations:
+    - classpath:mapper/*xml
+    - classpath:dao/*xml

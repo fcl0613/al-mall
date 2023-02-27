@@ -70,9 +70,9 @@ public class ShiroConfig {
 
         // 拦截器
         Map<String, String> filterRuleMap = new LinkedHashMap<>();
-        filterRuleMap.put("/admin/login", "anon");
-        filterRuleMap.put("/admin/logout", "anon");
-        filterRuleMap.put("/image/**", "anon");
+        filterRuleMap.put("/user/login", "anon");
+        filterRuleMap.put("/user/logout", "anon");
+        filterRuleMap.put("/user/reg", "anon");
         filterRuleMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterRuleMap);
 
