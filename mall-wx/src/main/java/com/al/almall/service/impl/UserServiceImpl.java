@@ -2,8 +2,11 @@ package com.al.almall.service.impl;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import com.al.almall.entity.DTO.LoginDTO;
+import com.al.almall.entity.DTO.MallUserUpdateDTO;
 import com.al.almall.entity.MallUser;
 import com.al.almall.entity.Result;
+import com.al.almall.entity.VO.GetMeInfoVO;
+import com.al.almall.entity.VO.GetSettingInfoVO;
 import com.al.almall.entity.VO.IndexInfoVO;
 import com.al.almall.entity.VO.LoginVO;
 import com.al.almall.exception.RequestException;
@@ -49,12 +52,53 @@ public class UserServiceImpl extends ServiceImpl<MallUserMapper, MallUser> imple
 
     @Override
     public Result getIndexInfo(HttpServletRequest request) {
-        String authorization = request.getHeader("Authorization");
-        Integer userId = jwtUtil.getUserId(authorization);
+        Integer userId = getUserId(request);
         MallUser mallUser = mallUserMapper.selectById(userId);
         IndexInfoVO indexInfoVO = new IndexInfoVO();
         indexInfoVO.setUsername(mallUser.getUsername());
         indexInfoVO.setPoints(mallUser.getPoints());
         return Result.success(indexInfoVO);
+    }
+
+    @Override
+    public Result getMeInfo(HttpServletRequest request) {
+        // 电话 积分 优惠券
+        Integer userId = getUserId(request);
+        MallUser mallUser = mallUserMapper.selectById(userId);
+        GetMeInfoVO getMeInfoVO = new GetMeInfoVO();
+        String phone = mallUser.getPhone();
+        String newPhone = phone.substring(0,3) + "****" + phone.substring(7);
+        getMeInfoVO.setPhone(newPhone);
+        getMeInfoVO.setPoints(mallUser.getPoints());
+        getMeInfoVO.setDiscountCoupon(0);
+        return Result.success(getMeInfoVO);
+    }
+
+    @Override
+    public Result getSettingInfo(HttpServletRequest request) {
+        Integer userId = getUserId(request);
+        MallUser mallUser = mallUserMapper.selectById(userId);
+        GetSettingInfoVO getSettingInfoVO = new GetSettingInfoVO();
+        String phone = mallUser.getPhone();
+        String newPhone = phone.substring(0,3) + "****" + phone.substring(7);
+        getSettingInfoVO.setPhone(newPhone);
+        getSettingInfoVO.setSex(mallUser.getSex());
+        return Result.success(getSettingInfoVO);
+    }
+
+    @Override
+    public Result updateInfo(MallUserUpdateDTO mallUserUpdateDTO,  HttpServletRequest request) {
+        Integer userId = getUserId(request);
+        MallUser mallUser = new MallUser();
+        mallUser.setId(userId);
+        mallUser.setPhone(mallUserUpdateDTO.getPhone());
+        mallUser.setSex(mallUserUpdateDTO.getSex());
+        mallUserMapper.updateById(mallUser);
+        return Result.success();
+    }
+
+    private Integer getUserId(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        return jwtUtil.getUserId(authorization);
     }
 }

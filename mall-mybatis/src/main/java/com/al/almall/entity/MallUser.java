@@ -43,4 +43,9 @@ public class MallUser implements Serializable {
      * 积分
      */
     private Integer points;
+
+    /**
+     * 0男 1女
+     */
+    private Integer sex;
 }
