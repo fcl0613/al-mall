@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.StoreDao">
+    <select id="getStoreListDO" resultType="com.al.almall.entity.DO.GetStoreListDO">
+        SELECT id,store_name,store_address,opening_time,longitude,latitude,
+        case `status`
+        <foreach collection="map" index="key" item="value">
+            when ${key} then #{value}
+        </foreach>
+        end as `status`
+        ,phone
+        FROM mall_store
+        WHERE
+        longitude &gt;= #{arr[0],javaType=String} AND latitude &gt;= #{arr[1],javaType=String}
+        AND longitude &lt;= #{arr[2],javaType=String} AND latitude &lt;= #{arr[3],javaType=String}
+    </select>
+
+    <select id="searchStoreListDO" resultType="com.al.almall.entity.DO.GetStoreListDO">
+        SELECT id,store_name,store_address,opening_time,longitude,latitude,
+        case `status`
+        <foreach collection="map" index="key" item="value">
+            when ${key} then #{value}
+        </foreach>
+        end as `status`
+        ,phone
+        FROM mall_store
+        WHERE store_name like concat('%',#{keyword},'%')
+    </select>
+</mapper>
