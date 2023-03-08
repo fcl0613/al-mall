@@ -40,6 +40,7 @@ public class AddGoodsForStoreTask {
             goods.setGoodsPic(mallGoodsDefault.getGoodsPic());
             goods.setCategoryId(mallGoodsDefault.getCategoryId());
             goods.setGoodsName(mallGoodsDefault.getGoodsName());
+            goods.setGoodsPrice(mallGoodsDefault.getGoodsPrice());
             goods.setFlag(GoodsFlagEnum.DEFAULT.getType());
             mallGoods.add(goods);
         }

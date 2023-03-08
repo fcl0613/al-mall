@@ -3,6 +3,8 @@ package com.al.almall.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import java.math.BigDecimal;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -49,4 +51,6 @@ public class MallGoods implements Serializable {
     private Integer goodsStatus;
 
     private Integer defaultId;
+
+    private BigDecimal goodsPrice;
 }

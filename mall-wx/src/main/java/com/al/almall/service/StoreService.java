@@ -8,4 +8,6 @@ public interface StoreService {
     Result getStoreList(GetStoreListDTO getStoreListDTO);
 
     Result searchStoreList(SearchStoreListDTO searchStoreListDTO);
+
+    Result getMenuList(Integer id);
 }

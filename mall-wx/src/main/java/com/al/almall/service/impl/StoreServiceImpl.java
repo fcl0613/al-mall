@@ -1,11 +1,17 @@
 package com.al.almall.service.impl;
 
+import com.al.almall.dao.CategoryDao;
+import com.al.almall.dao.GoodsDao;
 import com.al.almall.dao.StoreDao;
+import com.al.almall.entity.DO.CategoryListDO;
 import com.al.almall.entity.DO.GetStoreListDO;
+import com.al.almall.entity.DO.GoodsListDO;
 import com.al.almall.entity.DTO.GetStoreListDTO;
 import com.al.almall.entity.DTO.SearchStoreListDTO;
 import com.al.almall.entity.Result;
 import com.al.almall.entity.VO.GetStoreListVO;
+import com.al.almall.entity.VO.MenuListGoodsVO;
+import com.al.almall.entity.VO.MenuListVO;
 import com.al.almall.enums.StoreStatusEnum;
 import com.al.almall.service.StoreService;
 import com.al.almall.utils.GeographyUtil;
@@ -23,6 +29,12 @@ public class StoreServiceImpl implements StoreService {
 
     @Autowired
     private StoreDao storeDao;
+
+    @Autowired
+    private CategoryDao categoryDao;
+
+    @Autowired
+    private GoodsDao goodsDao;
 
     @Override
     public Result getStoreList(GetStoreListDTO getStoreListDTO) {
@@ -49,6 +61,35 @@ public class StoreServiceImpl implements StoreService {
                         searchStoreListDTO.getLongitude(),
                         searchStoreListDTO.getLatitude());
         return Result.success(getStoreListVOS);
+    }
+
+    @Override
+    public Result getMenuList(Integer id) {
+        List<CategoryListDO> categoryList = categoryDao.getCategoryList(id);
+        List<GoodsListDO> goodsList = goodsDao.getGoodsList(id);
+        ArrayList<MenuListVO> menuList = new ArrayList<>();
+        for (CategoryListDO categoryListDO : categoryList) {
+            MenuListVO menuListVO = new MenuListVO();
+            menuListVO.setId(categoryListDO.getId());
+            menuListVO.setCategoryName(categoryListDO.getCategoryName());
+            menuListVO.setCategoryIcon(categoryListDO.getCategoryIcon());
+            ArrayList<MenuListGoodsVO> menuListGoodsVOS = new ArrayList<>();
+            for (GoodsListDO goodsListDO : goodsList) {
+                if (goodsListDO.getCategoryId() == categoryListDO.getId()) {
+                    MenuListGoodsVO menuListGoodsVO = new MenuListGoodsVO();
+                    menuListGoodsVO.setId(goodsListDO.getId());
+                    menuListGoodsVO.setGoodsDescription(goodsListDO.getDescription());
+                    menuListGoodsVO.setGoodsName(goodsListDO.getGoodsName());
+                    menuListGoodsVO.setGoodsPic(goodsListDO.getGoodsPic());
+                    menuListGoodsVO.setGoodsPrice(goodsListDO.getGoodsPrice());
+                    menuListGoodsVO.setGoodsStock(goodsListDO.getStock());
+                    menuListGoodsVOS.add(menuListGoodsVO);
+                }
+            }
+            menuListVO.setGoodsList(menuListGoodsVOS);
+            menuList.add(menuListVO);
+        }
+        return Result.success(menuList);
     }
 
     private List<GetStoreListVO> buildStoreListVOS(List<GetStoreListDO> storeListDO, String currentLongitude,

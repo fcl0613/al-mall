@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.GoodsDao">
+    <select id="getGoodsList" resultType="com.al.almall.entity.DO.GoodsListDO">
+        SELECT id,goods_name,goods_pic,stock,description,goods_price,category_id
+        FROM mall_goods WHERE store_id = #{storeId} AND goods_status = 1;
+    </select>
+</mapper>
