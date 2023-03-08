@@ -1,4 +1,4 @@
-package com.al.almall.serive;
+package com.al.almall.service;
 
 import com.al.almall.entity.DTO.AddUserDTO;
 import com.al.almall.entity.DTO.RemoveUserDTO;

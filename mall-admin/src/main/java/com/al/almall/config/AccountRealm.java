@@ -2,8 +2,7 @@ package com.al.almall.config;
 
 import com.al.almall.entity.JwtToken;
 import com.al.almall.entity.MallAdmin;
-import com.al.almall.enums.AdminRoleEnum;
-import com.al.almall.serive.MallAdminService;
+import com.al.almall.service.MallAdminService;
 import com.al.almall.utils.JwtUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;

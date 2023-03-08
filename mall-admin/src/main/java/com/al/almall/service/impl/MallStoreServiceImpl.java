@@ -1,4 +1,4 @@
-package com.al.almall.serive.impl;
+package com.al.almall.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.al.almall.entity.DTO.AddStoreDTO;
@@ -10,7 +10,7 @@ import com.al.almall.entity.Result;
 import com.al.almall.entity.VO.StoreListVO;
 import com.al.almall.exception.RequestException;
 import com.al.almall.mapper.MallStoreMapper;
-import com.al.almall.serive.MallStoreService;
+import com.al.almall.service.MallStoreService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;

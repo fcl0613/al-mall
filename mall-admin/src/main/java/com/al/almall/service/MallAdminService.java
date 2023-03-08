@@ -1,4 +1,4 @@
-package com.al.almall.serive;
+package com.al.almall.service;
 
 import com.al.almall.entity.MallAdmin;
 import com.al.almall.entity.Result;

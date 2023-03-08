@@ -3,7 +3,7 @@ package com.al.almall.controller;
 
 import com.al.almall.entity.DTO.*;
 import com.al.almall.entity.Result;
-import com.al.almall.serive.MallStoreOwnerService;
+import com.al.almall.service.MallStoreOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

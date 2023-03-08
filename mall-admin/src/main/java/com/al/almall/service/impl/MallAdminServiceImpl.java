@@ -1,4 +1,4 @@
-package com.al.almall.serive.impl;
+package com.al.almall.service.impl;
 
 import cn.hutool.crypto.digest.DigestUtil;
 import com.al.almall.entity.MallAdmin;
@@ -6,7 +6,7 @@ import com.al.almall.entity.Result;
 import com.al.almall.entity.VO.LoginVo;
 import com.al.almall.exception.RequestException;
 import com.al.almall.mapper.MallAdminMapper;
-import com.al.almall.serive.MallAdminService;
+import com.al.almall.service.MallAdminService;
 import com.al.almall.utils.JwtUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

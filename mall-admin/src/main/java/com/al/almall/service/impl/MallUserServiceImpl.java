@@ -1,4 +1,4 @@
-package com.al.almall.serive.impl;
+package com.al.almall.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
@@ -11,7 +11,7 @@ import com.al.almall.entity.Result;
 import com.al.almall.entity.VO.UserListVO;
 import com.al.almall.exception.RequestException;
 import com.al.almall.mapper.MallUserMapper;
-import com.al.almall.serive.MallUserService;
+import com.al.almall.service.MallUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;

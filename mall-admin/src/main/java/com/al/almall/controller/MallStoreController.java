@@ -7,7 +7,7 @@ import com.al.almall.entity.DTO.RemoveStoreDTO;
 import com.al.almall.entity.DTO.StoreListDTO;
 import com.al.almall.entity.MallStore;
 import com.al.almall.entity.Result;
-import com.al.almall.serive.MallStoreService;
+import com.al.almall.service.MallStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

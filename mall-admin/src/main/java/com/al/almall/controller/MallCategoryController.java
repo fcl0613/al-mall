@@ -4,7 +4,7 @@ package com.al.almall.controller;
 import com.al.almall.entity.DTO.CategoryListDTO;
 import com.al.almall.entity.MallCategory;
 import com.al.almall.entity.Result;
-import com.al.almall.serive.MallCategoryService;
+import com.al.almall.service.MallCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +45,14 @@ public class MallCategoryController {
     @GetMapping("/get/{id}")
     public Result getCategoryDetail(@PathVariable Integer id) {
         return mallCategoryService.getCategoryDetail(id);
+    }
+
+    /**
+     * 获取所有默认分类
+     */
+    @GetMapping("/default/all")
+    public Result getAllDefaultCategory() {
+        return mallCategoryService.getAllDefaultCategory();
     }
 }
 

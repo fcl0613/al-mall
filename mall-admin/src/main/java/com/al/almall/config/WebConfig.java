@@ -30,5 +30,9 @@ public class WebConfig implements WebMvcConfigurer {
         // 分类icon
         registry.addResourceHandler("/image/category/**")
                 .addResourceLocations("file:" + "D:\\Programming\\IdeaProject\\al-mall\\image\\category\\");
+
+        // 商品图片
+        registry.addResourceHandler("/image/goods/**")
+                .addResourceLocations("file:" + "D:\\Programming\\IdeaProject\\al-mall\\image\\goods\\");
     }
 }

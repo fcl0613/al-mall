@@ -1,4 +1,4 @@
-package com.al.almall.serive;
+package com.al.almall.service;
 
 import com.al.almall.entity.DTO.CategoryListDTO;
 import com.al.almall.entity.MallCategory;
@@ -24,4 +24,6 @@ public interface MallCategoryService extends IService<MallCategory> {
     Result removeCategory(Integer id);
 
     Result getCategoryDetail(Integer id);
+
+    Result getAllDefaultCategory();
 }

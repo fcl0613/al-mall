@@ -2,7 +2,7 @@ package com.al.almall.controller;
 
 
 import com.al.almall.entity.Result;
-import com.al.almall.serive.MallAdminService;
+import com.al.almall.service.MallAdminService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

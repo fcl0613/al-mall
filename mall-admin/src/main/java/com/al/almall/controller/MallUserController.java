@@ -6,7 +6,7 @@ import com.al.almall.entity.DTO.RemoveUserDTO;
 import com.al.almall.entity.DTO.UpdateUserDTO;
 import com.al.almall.entity.DTO.UserListDTO;
 import com.al.almall.entity.Result;
-import com.al.almall.serive.MallUserService;
+import com.al.almall.service.MallUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
