@@ -11,6 +11,7 @@ import com.al.almall.entity.VO.StoreListVO;
 import com.al.almall.exception.RequestException;
 import com.al.almall.mapper.MallStoreMapper;
 import com.al.almall.service.MallStoreService;
+import com.al.almall.task.InitGoodsForStoreTask;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -35,6 +36,9 @@ public class MallStoreServiceImpl extends ServiceImpl<MallStoreMapper, MallStore
 
     @Autowired
     private MallStoreMapper mallStoreMapper;
+
+    @Autowired
+    private InitGoodsForStoreTask initGoodsForStoreTask;
 
     @Override
     public Result storeList(StoreListDTO storeListDTO) {
@@ -67,6 +71,8 @@ public class MallStoreServiceImpl extends ServiceImpl<MallStoreMapper, MallStore
         mallStore.setStatus(addStoreDTO.getStatus());
         mallStore.setPhone(addStoreDTO.getPhone());
         this.save(mallStore);
+        // 初始化店铺初始菜单
+        initGoodsForStoreTask.initGoods(mallStore.getId());
         return Result.success();
     }
 

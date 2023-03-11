@@ -42,6 +42,7 @@ public class AddGoodsForStoreTask {
             goods.setGoodsName(mallGoodsDefault.getGoodsName());
             goods.setGoodsPrice(mallGoodsDefault.getGoodsPrice());
             goods.setFlag(GoodsFlagEnum.DEFAULT.getType());
+            goods.setGoodsPoints(mallGoodsDefault.getGoodsPoints());
             mallGoods.add(goods);
         }
         mallGoodsService.saveBatch(mallGoods);

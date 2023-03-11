@@ -40,6 +40,7 @@ public class InitGoodsForStoreTask {
             goods.setGoodsName(mallGoodsDefault.getGoodsName());
             goods.setFlag(GoodsFlagEnum.DEFAULT.getType());
             goods.setGoodsPrice(mallGoodsDefault.getGoodsPrice());
+            goods.setGoodsPoints(mallGoodsDefault.getGoodsPoints());
             mallGoods.add(goods);
         }
         mallGoodsService.saveBatch(mallGoods);

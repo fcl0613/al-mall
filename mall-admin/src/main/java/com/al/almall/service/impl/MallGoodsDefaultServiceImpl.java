@@ -75,6 +75,7 @@ public class MallGoodsDefaultServiceImpl extends ServiceImpl<MallGoodsDefaultMap
         goods.setGoodsPic(mallGoods.getGoodsPic());
         goods.setDescription(mallGoods.getDescription());
         goods.setGoodsStatus(mallGoods.getGoodsStatus());
+        goods.setGoodsPoints(mallGoods.getGoodsPoints());
         mallGoodsMapper.update(goods,
                 new LambdaUpdateWrapper<MallGoods>().eq(MallGoods::getDefaultId, mallGoods.getId()));
         return Result.success();

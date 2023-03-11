@@ -53,4 +53,6 @@ public class MallGoods implements Serializable {
     private Integer defaultId;
 
     private BigDecimal goodsPrice;
+
+    private Integer goodsPoints;
 }

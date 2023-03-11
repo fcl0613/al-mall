@@ -73,6 +73,7 @@ public class ShiroConfig {
         filterRuleMap.put("/user/login", "anon");
         filterRuleMap.put("/user/logout", "anon");
         filterRuleMap.put("/user/reg", "anon");
+        filterRuleMap.put("/image/**", "anon");
         filterRuleMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterRuleMap);
 

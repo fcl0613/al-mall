@@ -40,4 +40,6 @@ public class MallGoodsDefault implements Serializable {
 
     private BigDecimal goodsPrice;
 
+    private Integer goodsPoints;
+
 }

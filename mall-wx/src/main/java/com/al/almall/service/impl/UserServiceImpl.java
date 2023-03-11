@@ -81,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<MallUserMapper, MallUser> imple
         GetSettingInfoVO getSettingInfoVO = new GetSettingInfoVO();
         String phone = mallUser.getPhone();
         String newPhone = phone.substring(0,3) + "****" + phone.substring(7);
-        getSettingInfoVO.setPhone(newPhone);
+        getSettingInfoVO.setPhone(mallUser.getPhone());
         getSettingInfoVO.setSex(mallUser.getSex());
         return Result.success(getSettingInfoVO);
     }
