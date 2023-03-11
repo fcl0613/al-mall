@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/store")
 public class StoreController {
@@ -33,7 +35,18 @@ public class StoreController {
      * @return
      */
     @PostMapping("/menuList/{id}")
-    public Result getMenuList(@PathVariable Integer id) {
-        return storeService.getMenuList(id);
+    public Result getMenuList(@PathVariable Integer id, HttpServletRequest request) {
+        return storeService.getMenuList(id ,request);
+    }
+
+    /**
+     *
+     * @param id  店铺编号
+     * @param request
+     * @return
+     */
+    @PostMapping("/cartBaseInfo/{id}")
+    public Result getCartBaseInfo(@PathVariable Integer id, HttpServletRequest request) {
+        return storeService.getCartBaseInfo(id, request);
     }
 }

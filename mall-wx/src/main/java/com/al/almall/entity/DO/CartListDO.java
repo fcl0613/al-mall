@@ -1,16 +1,15 @@
-package com.al.almall.entity.VO;
+package com.al.almall.entity.DO;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class MenuListGoodsVO {
+public class CartListDO {
     private Integer id;
-    private String goodsName;
+    private Integer goodsId;
     private String goodsPic;
-    private String goodsDescription;
+    private String goodsName;
     private BigDecimal goodsPrice;
-    private Integer goodsStock;
     private Integer goodsCount;
 }

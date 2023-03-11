@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.CartDao">
+    <select id="getCartList" resultType="com.al.almall.entity.DO.CartListDO">
+        SELECT t1.id,t1.goods_count,
+        mall_goods.id AS goods_id, mall_goods.goods_name, mall_goods.goods_pic, mall_goods.goods_price
+        FROM
+        (
+        SELECT id, store_id, goods_id,goods_count FROM `mall_cart` WHERE user_id = #{userId}
+        AND store_id = #{storeId}
+        ) AS t1
+        INNER JOIN mall_goods
+        ON t1.goods_id = mall_goods.id
+    </select>
+    <select id="getCartBaseInfo" resultType="com.al.almall.entity.DO.CartBaseInfoDO">
+        SELECT sum(goods_count) AS total_count, sum(goods_price*goods_count) AS total_price
+        FROM mall_cart WHERE user_id = #{userId} AND store_id = #{storeId}
+    </select>
+</mapper>

@@ -1,23 +1,30 @@
 package com.al.almall.service.impl;
 
+import com.al.almall.dao.CartDao;
 import com.al.almall.dao.CategoryDao;
 import com.al.almall.dao.GoodsDao;
 import com.al.almall.dao.StoreDao;
+import com.al.almall.entity.DO.CartBaseInfoDO;
 import com.al.almall.entity.DO.CategoryListDO;
 import com.al.almall.entity.DO.GetStoreListDO;
 import com.al.almall.entity.DO.GoodsListDO;
 import com.al.almall.entity.DTO.GetStoreListDTO;
 import com.al.almall.entity.DTO.SearchStoreListDTO;
+import com.al.almall.entity.MallCart;
 import com.al.almall.entity.Result;
 import com.al.almall.entity.VO.GetStoreListVO;
 import com.al.almall.entity.VO.MenuListGoodsVO;
 import com.al.almall.entity.VO.MenuListVO;
 import com.al.almall.enums.StoreStatusEnum;
+import com.al.almall.mapper.MallCartMapper;
 import com.al.almall.service.StoreService;
 import com.al.almall.utils.GeographyUtil;
+import com.al.almall.utils.JwtUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +42,15 @@ public class StoreServiceImpl implements StoreService {
 
     @Autowired
     private GoodsDao goodsDao;
+
+    @Autowired
+    private MallCartMapper mallCartMapper;
+
+    @Autowired
+    JwtUtil jwtUtil;
+
+    @Autowired
+    private CartDao cartDao;
 
     @Override
     public Result getStoreList(GetStoreListDTO getStoreListDTO) {
@@ -64,9 +80,16 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public Result getMenuList(Integer id) {
+    public Result getMenuList(Integer id, HttpServletRequest request) {
         List<CategoryListDO> categoryList = categoryDao.getCategoryList(id);
         List<GoodsListDO> goodsList = goodsDao.getGoodsList(id);
+        // 我们这里还需要购物车的信息
+        // 查询条件 storeid userid 找到goodsid和goodscount
+        String authorization = request.getHeader("Authorization");
+        Integer userId = jwtUtil.getUserId(authorization);
+        List<MallCart> mallCarts = mallCartMapper.selectList(new LambdaQueryWrapper<MallCart>()
+                .eq(MallCart::getUserId, userId)
+                .eq(MallCart::getStoreId, id));
         ArrayList<MenuListVO> menuList = new ArrayList<>();
         for (CategoryListDO categoryListDO : categoryList) {
             MenuListVO menuListVO = new MenuListVO();
@@ -83,6 +106,12 @@ public class StoreServiceImpl implements StoreService {
                     menuListGoodsVO.setGoodsPic(goodsListDO.getGoodsPic());
                     menuListGoodsVO.setGoodsPrice(goodsListDO.getGoodsPrice());
                     menuListGoodsVO.setGoodsStock(goodsListDO.getStock());
+                    for (MallCart mallCart : mallCarts) {
+                        if (goodsListDO.getId() == mallCart.getGoodsId()) {
+                            menuListGoodsVO.setGoodsCount(mallCart.getGoodsCount());
+                            break;
+                        }
+                    }
                     menuListGoodsVOS.add(menuListGoodsVO);
                 }
             }
@@ -90,6 +119,14 @@ public class StoreServiceImpl implements StoreService {
             menuList.add(menuListVO);
         }
         return Result.success(menuList);
+    }
+
+    @Override
+    public Result getCartBaseInfo(Integer id, HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        Integer userId = jwtUtil.getUserId(authorization);
+        CartBaseInfoDO cartBaseInfo = cartDao.getCartBaseInfo(userId, id);
+        return Result.success(cartBaseInfo);
     }
 
     private List<GetStoreListVO> buildStoreListVOS(List<GetStoreListDO> storeListDO, String currentLongitude,
