@@ -13,7 +13,7 @@
         ON t1.goods_id = mall_goods.id
     </select>
     <select id="getCartBaseInfo" resultType="com.al.almall.entity.DO.CartBaseInfoDO">
-        SELECT sum(goods_count) AS total_count, sum(goods_price*goods_count) AS total_price
+        SELECT IFNULL(sum(goods_count),0) AS total_count, IFNULL(sum(goods_price*goods_count),0) AS total_price
         FROM mall_cart WHERE user_id = #{userId} AND store_id = #{storeId}
     </select>
 </mapper>

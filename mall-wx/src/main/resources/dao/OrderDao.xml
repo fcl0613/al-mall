@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.OrderDao">
+    <select id="getOrderList" resultType="com.al.almall.entity.DO.OrderListDO">
+        SELECT t1.id,t1.total_price,t1.create_time,
+        case t1.order_status
+        <foreach collection="map" index="key" item="value">
+            when ${key} then #{value}
+        </foreach>
+        end as order_status
+        ,mall_store.store_name FROM (
+            SELECT id,store_id,total_price,create_time,order_status FROM
+            mall_order WHERE user_id = #{userId} AND create_time >= #{time}
+            ) AS t1
+        INNER JOIN
+        mall_store
+        ON t1.store_id = mall_store.id
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="getOrderDetailList" resultType="com.al.almall.entity.DO.OrderDetailListDO">
+        SELECT t1.order_id, GROUP_CONCAT(mall_goods.goods_pic) AS goods_pic,
+        SUM(t1.goods_count) as total_count FROM
+        (
+        SELECT order_id,goods_id,goods_count FROM mall_order_detail WHERE order_id IN
+        <foreach collection="list" index="index" item="value" separator="," open="(" close=")">
+            #{value}
+        </foreach>
+        ) AS t1
+        INNER JOIN
+        mall_goods
+        ON t1.goods_id = mall_goods.id
+        GROUP BY t1.order_id
+    </select>
+</mapper>
