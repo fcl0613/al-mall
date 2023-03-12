@@ -29,6 +29,19 @@ public class JwtUtil {
         return token;
     }
 
+    public String createToken(Integer userId, String username, Integer storeId) {
+        String token = Jwts.builder()
+                .setSubject("AUTH-USER")
+                .setExpiration(new Date(System.currentTimeMillis() + ttl))
+                .claim("userId", userId)
+                .claim("username", username)
+                .claim("storeId", storeId)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .compressWith(CompressionCodecs.GZIP)
+                .compact();
+        return token;
+    }
+
     public Integer getUserId(String token) {
         try {
             if (StrUtil.isEmpty(token)) return null;
@@ -50,6 +63,19 @@ public class JwtUtil {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             Claims claims = claimsJws.getBody();
             return (String) claims.get("username");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String getStoreId(String token) {
+        try {
+            if (StrUtil.isEmpty(token)) return "";
+
+            Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Claims claims = claimsJws.getBody();
+            return (String) claims.get("storeId");
         } catch (Exception e) {
             e.printStackTrace();
             return null;
