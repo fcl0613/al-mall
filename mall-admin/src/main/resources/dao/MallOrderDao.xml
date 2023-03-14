@@ -64,4 +64,20 @@
         mall_goods
         ON t1.goods_id = mall_goods.id
     </select>
+
+    <select id="getYesterdayOrder" resultType="integer">
+        SELECT COUNT(id) FROM mall_order WHERE DATE_FORMAT(create_time,'%Y-%m-%d') = #{time}
+    </select>
+
+    <select id="getYesterdayEffectiveOrderCount" resultType="integer">
+        SELECT COUNT(id) FROM mall_order WHERE order_status = 1 AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{time}
+    </select>
+
+    <select id="getTotalIncome" resultType="string">
+        SELECT SUM(total_price) FROM mall_order
+    </select>
+
+    <select id="getYesterdayIncome" resultType="string">
+        SELECT IFNULL(SUM(total_price),0) FROM mall_order WHERE DATE_FORMAT(create_time,'%Y-%m-%d') = #{time}
+    </select>
 </mapper>

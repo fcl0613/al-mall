@@ -19,4 +19,9 @@ public interface MallOrderDao {
     OrderDetailDO getOrderDetail(@Param("orderId") Integer orderId,
                                  @Param("map") Map<Integer, String> map);
     List<OrderDetailGoodsDO> getOrderDetailGoods(@Param("orderId") Integer orderId);
+
+    Integer getYesterdayOrder(@Param("time") String time);
+    Integer getYesterdayEffectiveOrderCount(@Param("time") String time);
+    String getTotalIncome();
+    String getYesterdayIncome(@Param("time") String time);
 }
