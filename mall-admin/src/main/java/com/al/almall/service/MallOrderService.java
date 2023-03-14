@@ -7,4 +7,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 public interface MallOrderService extends IService<MallOrder> {
     Result getOrderList(GetOrderListDTO getOrderListDTO);
+
+    Result getOrderDetail(Integer id);
 }

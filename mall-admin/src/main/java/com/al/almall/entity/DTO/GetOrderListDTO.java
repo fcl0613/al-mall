@@ -3,9 +3,9 @@ package com.al.almall.entity.DTO;
 import lombok.Data;
 
 @Data
-public class GetOrderListDTO {
+public class GetOrderListDTO extends PageParamsDTO{
     private Integer orderId;
     private Integer storeId;
-    private String startTime;
-    private String endTime;
+    private String time;
+    private Integer orderStatus;
 }

@@ -5,6 +5,8 @@ import com.al.almall.entity.Result;
 import com.al.almall.service.MallOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,5 +22,10 @@ public class MallOrderController {
     @PostMapping("/list")
     public Result getOrderList(@RequestBody GetOrderListDTO getOrderListDTO) {
         return mallOrderService.getOrderList(getOrderListDTO);
+    }
+
+    @GetMapping("/detail/{id}")
+    public Result getOrderDetail(@PathVariable Integer id) {
+        return mallOrderService.getOrderDetail(id);
     }
 }

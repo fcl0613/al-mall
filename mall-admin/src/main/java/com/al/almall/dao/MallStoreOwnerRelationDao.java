@@ -1,4 +1,4 @@
-package com.al.almall;
+package com.al.almall.dao;
 
 import com.al.almall.entity.DO.StoreDO;
 import org.apache.ibatis.annotations.Mapper;

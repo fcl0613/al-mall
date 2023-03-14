@@ -111,6 +111,7 @@ public class OrderServiceImpl extends ServiceImpl<MallOrderMapper, MallOrder> im
         mallOrder.setTotalPrice(orderPrice);
         mallOrder.setUserId(userId);
         mallOrder.setPoints(points);
+        mallOrder.setOrderStatus(OrderStatusEnum.WAIT.getType());
         // 插入订单表
         mallOrderMapper.insert(mallOrder);
         ArrayList<MallOrderDetail> mallOrderDetails = new ArrayList<>();

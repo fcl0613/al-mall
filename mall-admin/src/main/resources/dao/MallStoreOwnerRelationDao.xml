@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.al.almall.MallStoreOwnerRelationDao">
+<mapper namespace="com.al.almall.dao.MallStoreOwnerRelationDao">
     <insert id="assignStore">
         insert into mall_store_owner_relation(store_id,owner_id) values (#{storeId}, #{ownerId})
     </insert>

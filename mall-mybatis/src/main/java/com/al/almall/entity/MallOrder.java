@@ -34,4 +34,6 @@ public class MallOrder implements Serializable {
     private LocalDateTime createTime;
 
     private Integer points;
+
+    private Integer orderStatus;
 }

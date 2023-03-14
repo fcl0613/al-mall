@@ -2,7 +2,7 @@ package com.al.almall.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.DigestUtil;
-import com.al.almall.MallStoreOwnerRelationDao;
+import com.al.almall.dao.MallStoreOwnerRelationDao;
 import com.al.almall.entity.DO.StoreDO;
 import com.al.almall.entity.DTO.*;
 import com.al.almall.entity.MallStoreOwner;
