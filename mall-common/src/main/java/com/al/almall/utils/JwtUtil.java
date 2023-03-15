@@ -69,13 +69,13 @@ public class JwtUtil {
         }
     }
 
-    public String getStoreId(String token) {
+    public Integer getStoreId(String token) {
         try {
-            if (StrUtil.isEmpty(token)) return "";
+            if (StrUtil.isEmpty(token)) return null;
 
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             Claims claims = claimsJws.getBody();
-            return (String) claims.get("storeId");
+            return (Integer) claims.get("storeId");
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -2,6 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.al.almall.dao.StoreOwnerDao">
     <select id="getStoreIdByStoreOwner" resultType="integer">
-        select store_id from mall_store_owner_relation
+        select store_id from mall_store_owner_relation where owner_id = #{ownerId}
     </select>
 </mapper>

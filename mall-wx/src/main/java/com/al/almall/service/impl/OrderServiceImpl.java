@@ -75,7 +75,6 @@ public class OrderServiceImpl extends ServiceImpl<MallOrderMapper, MallOrder> im
 
     @Override
     public Result addOrder(Integer storeId, HttpServletRequest request) {
-        // TODO 调用第三方支付接口
         String authorization = request.getHeader("Authorization");
         Integer userId = jwtUtil.getUserId(authorization);
         // 获取购物车内的所有商品
@@ -128,6 +127,7 @@ public class OrderServiceImpl extends ServiceImpl<MallOrderMapper, MallOrder> im
         mallCartMapper.delete(new LambdaUpdateWrapper<MallCart>()
         .eq(MallCart::getStoreId, storeId)
         .eq(MallCart::getUserId, userId));
+        // TODO 调用第三方支付接口
         // 更新积分信息 这步到完成订单后在做
 //        userDao.updatePoints(points, userId);
         return Result.success();

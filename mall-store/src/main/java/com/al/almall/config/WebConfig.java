@@ -24,8 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
 //                        System.getProperty("file.separator"));
 
         //用户头像
-//        registry.addResourceHandler("/image/avatar/**")
-//                .addResourceLocations("file:" + "D:\\Programming\\IdeaProject\\al-mall\\image\\avatar\\");
+        registry.addResourceHandler("/image/avatar/**")
+                .addResourceLocations("file:" + "D:\\Programming\\IdeaProject\\al-mall\\image\\avatar\\");
 
         // 分类icon
         registry.addResourceHandler("/image/category/**")

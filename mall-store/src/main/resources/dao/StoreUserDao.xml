@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.StoreUserDao">
+    <update id="updatePoints">
+        UPDATE mall_user SET points = points + #{offset} WHERE id = #{userId}
+    </update>
+</mapper>
