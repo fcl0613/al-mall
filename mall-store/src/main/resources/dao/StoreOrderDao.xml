@@ -16,10 +16,10 @@
                 and id = #{dto.orderId}
             </if>
             <if test="dto.beginTime != null and dto.beginTime != ''">
-                AND DATE_FORMAT(create_time,'%Y-%m-%d') &gt;= #{dto.time}
+                AND DATE_FORMAT(create_time,'%Y-%m-%d') &gt;= #{dto.beginTime}
             </if>
             <if test="dto.endTime != null and dto.endTime != ''">
-                AND DATE_FORMAT(create_time,'%Y-%m-%d') &lt;= #{dto.time}
+                AND DATE_FORMAT(create_time,'%Y-%m-%d') &lt;= #{dto.endTime}
             </if>
             <if test="dto.orderStatus != null">
                 AND order_status = #{dto.orderStatus}
