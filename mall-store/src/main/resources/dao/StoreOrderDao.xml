@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.al.almall.dao.StoreOrderDao">
+    <select id="getOrderList" resultType="com.al.almall.entity.DO.OrderDO">
+        SELECT t1.id,t1.total_price,t1.create_time,
+        case t1.order_status
+        <foreach collection="map" index="key" item="value">
+            when ${key} then #{value}
+        </foreach>
+        END AS order_status,mall_user.username FROM
+        (
+        SELECT id,total_price,user_id,create_time,order_status FROM mall_order
+        <where>
+            store_id = #{storeId}
+            <if test="dto.orderId != null">
+                and id = #{dto.orderId}
+            </if>
+            <if test="dto.beginTime != null and dto.beginTime != ''">
+                AND DATE_FORMAT(create_time,'%Y-%m-%d') &gt;= #{dto.time}
+            </if>
+            <if test="dto.endTime != null and dto.endTime != ''">
+                AND DATE_FORMAT(create_time,'%Y-%m-%d') &lt;= #{dto.time}
+            </if>
+            <if test="dto.orderStatus != null">
+                AND order_status = #{dto.orderStatus}
+            </if>
+        </where>
+        ) AS t1
+        INNER JOIN mall_user
+        ON t1.user_id = mall_user.id
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="getOrderDetail" resultType="com.al.almall.entity.DO.OrderDetailDO">
+        SELECT t1.id,t1.total_price,
+        case t1.order_status
+        <foreach collection="map" index="key" item="value">
+            when ${key} then #{value}
+        </foreach>
+        end as order_status
+        ,t1.points, mall_user.username FROM
+        (
+        SELECT id,total_price,user_id,order_status,points FROM mall_order WHERE id = #{orderId}
+        )	AS t1
+        INNER JOIN
+        mall_user
+        ON t1.user_id = mall_user.id
+    </select>
+
+    <select id="getOrderDetailGoods" resultType="com.al.almall.entity.DO.OrderDetailGoodsDO">
+        SELECT mall_goods.goods_name,mall_goods.goods_pic,mall_goods.goods_price,
+        t1.goods_count,t1.goods_count * mall_goods.goods_price AS subtotal FROM
+        (
+        SELECT goods_id,goods_count FROM mall_order_detail WHERE order_id = #{orderId}
+        ) AS t1
+        INNER JOIN
+        mall_goods
+        ON t1.goods_id = mall_goods.id
+    </select>
+
+    <select id="getYesterdayOrder" resultType="integer">
+        SELECT COUNT(id) FROM mall_order WHERE DATE_FORMAT(create_time,'%Y-%m-%d') = #{time} AND store_id = #{storeId}
+    </select>
+
+    <select id="getYesterdayEffectiveOrderCount" resultType="integer">
+        SELECT COUNT(id) FROM mall_order WHERE order_status = 1 AND DATE_FORMAT(create_time,'%Y-%m-%d') = #{time} AND store_id = #{storeId}
+    </select>
+
+    <select id="getTotalIncome" resultType="string">
+        SELECT SUM(total_price) FROM mall_order WHERE store_id = #{storeId}
+    </select>
+
+    <select id="getYesterdayIncome" resultType="string">
+        SELECT IFNULL(SUM(total_price),0) FROM mall_order WHERE DATE_FORMAT(create_time,'%Y-%m-%d') = #{time} AND store_id = #{storeId}
+    </select>
+</mapper>
